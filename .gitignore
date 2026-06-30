@@ -1,8 +1,4 @@
-data/kaizen_backlog.json
-sessions/reports/*.md
 sessions/readable/*.md
 .env
 
-!sessions/reports/.gitkeep
-!data/.gitkeep
 !.env.example

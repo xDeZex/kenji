@@ -1,0 +1,3 @@
+# Target Condition is the primary unit; Experiment replaces PDCA Item
+
+The PDCA Item — Kenji's original atomic unit — is superseded by a two-level structure: Target Condition (the measurable goal) containing Experiments (individual PDCA cycles). A PDCA Item conflated the goal with the first attempt to reach it, which made it impossible to track progress across multiple attempts or to distinguish "the countermeasure failed" from "we haven't found the right countermeasure yet." Separating the Target Condition (what the process should look like) from Experiments (each action taken toward it) gives Kenji a stable goal to work toward across multiple Reviews, without resetting the improvement work when a single experiment doesn't land.

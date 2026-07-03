@@ -1,0 +1,3 @@
+# Re-grilling an already-populated Challenge or Harness requires confirmation
+
+If `.lean/improvement-kata.md` already has both Challenge and Harness filled in, kata-setup does not silently overwrite them — it warns that existing Target Conditions may reference that Challenge, and waits for explicit confirmation before re-grilling. A partially-built file (only one section present) is treated as unfinished setup and re-grilled without asking, since nothing yet depends on it. The distinction matters because the Kata Format's own rule says Challenge should change rarely, and Target Conditions anchor to it — an accidental overwrite would sever that anchor without anyone intending it.

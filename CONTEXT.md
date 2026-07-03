@@ -16,6 +16,14 @@ _Avoid_: Analysis, assessment, audit
 The long-range direction for the team's AI-assisted coding practice, defined in the Target Repo. All Target Conditions advance toward the Challenge. Stable across many Reviews; changes only when the team's fundamental goals shift.
 _Avoid_: Goal, objective, vision, north star
 
+**Harness**:
+The recorded description of the AI engineering environment in a Target Repo — its instruction files, config, and user behavior — kept as a section of `.lean/improvement-kata.md`. Names the levers a Countermeasure can pull. Updated only when that environment actually changes.
+_Avoid_: Environment, tooling, setup, config
+
+**Kata Setup**:
+The skill that produces the Challenge and Harness sections of `.lean/improvement-kata.md` before a Review can run. Grills the user directly for the Challenge, and inspects the Target Repo before grilling the user for the Harness. Invoked directly ahead of a repo's first Review, or by improvement-kata's step 2 when either section is missing.
+_Avoid_: Onboarding, bootstrap, init
+
 **Target Condition**:
 The primary unit of improvement work. A concrete, measurable picture of what the process should look like at the next stage — specific enough that a future Review can determine whether it has been reached. Lives in the Target Repo alongside the Challenge. Every Review checks open Target Conditions and may set new ones.
 _Avoid_: PDCA Item, goal, milestone, outcome

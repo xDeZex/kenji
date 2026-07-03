@@ -18,9 +18,7 @@ _Done when_: Every Turn and every tool call result has been read. The session na
 
 Open `.lean/improvement-kata.md` in the Target Repo. Read the **Harness** section — note what levers are available for countermeasures. Read the **Challenge** and record the exact text.
 
-**If the file doesn't exist or has no Challenge:** The kata cannot proceed without direction. Work with the user to define it — a single sentence describing what AI-assisted coding looks like when it's working well. Write it to `.lean/improvement-kata.md` and confirm with the user before continuing.
-
-**If the file has no Harness section:** Ask the user what instruction files and levers exist in this repo, then write a Harness section following the format in [KATA-FORMAT.md](KATA-FORMAT.md) before continuing.
+**If the file doesn't exist, or is missing a Challenge or a Harness section:** invoke [kata-setup](../kata-setup/SKILL.md) to grill out and write the Challenge and Harness, then resume here.
 
 _Done when_: The Harness levers are noted. The Challenge text is recorded verbatim.
 

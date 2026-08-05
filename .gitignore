@@ -1,5 +1,6 @@
 sessions/readable/*.md
 .env
 CLAUDE.md
+.claude/
 
 !.env.example

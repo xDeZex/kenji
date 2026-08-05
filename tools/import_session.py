@@ -1,5 +1,10 @@
 """
-import_session.py — transforms a Copilot CLI session into a Readable Session for Kenji.
+import_session.py — transforms an AI coding session into a Readable Session for Kenji.
+
+Supports two Session Sources: Copilot CLI (~/.copilot/session-state/) and
+Claude Code (~/.claude/projects/<repo>/*.jsonl). Both are adapted into the
+same turns/meta shape before rendering, so a third source is a new adapter,
+not a rewrite.
 
 Usage:
     python tools/import_session.py                  # import most recent session for LEAN_REPO
@@ -10,6 +15,7 @@ Usage:
 import difflib
 import json
 import sys
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
@@ -29,6 +35,57 @@ def load_lean_repo():
     sys.exit("LEAN_REPO not set in .env")
 
 
+def parse_ts(ts):
+    if not ts:
+        return None
+    try:
+        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    except Exception:
+        return None
+
+
+def dur_s(start_ts, end_ts):
+    a, b = parse_ts(start_ts), parse_ts(end_ts)
+    if a and b:
+        return round((b - a).total_seconds(), 1)
+    return None
+
+
+def aggregate_turn_stats(turns):
+    """Tool counts/failures/step totals — identical for any source once turns are in the shared shape."""
+    tool_counts = {}
+    failed_tools = 0
+    total_tools = 0
+    for turn in turns:
+        for step in turn["steps"]:
+            for tool in step["tools"]:
+                tool_counts[tool["name"]] = tool_counts.get(tool["name"], 0) + 1
+                total_tools += 1
+                if not tool["success"]:
+                    failed_tools += 1
+    total_steps = sum(len(t["steps"]) for t in turns)
+    return {
+        "tool_counts": tool_counts,
+        "total_tools": total_tools,
+        "failed_tools": failed_tools,
+        "total_steps": total_steps,
+    }
+
+
+@dataclass
+class SessionInfo:
+    """A candidate session found by a source's find_sessions(), before it's loaded."""
+    created: str
+    session_id: str
+    name: str
+    source: object  # the SessionSource that produced this info; source.load(info) loads it
+    ref: object      # opaque handle the source uses to locate the session data
+
+
+# ---------------------------------------------------------------------------
+# Copilot CLI source
+# ---------------------------------------------------------------------------
+
 def session_state_dir():
     return Path.home() / ".copilot" / "session-state"
 
@@ -45,10 +102,10 @@ def load_workspace(session_dir):
     return result
 
 
-def find_sessions(lean_repo):
+def find_copilot_sessions(lean_repo):
     state_dir = session_state_dir()
     if not state_dir.exists():
-        sys.exit(f"Session state directory not found: {state_dir}")
+        return []
 
     lean_repo_str = str(lean_repo).replace("\\", "/").lower()
     matches = []
@@ -77,22 +134,6 @@ def load_events(session_dir):
             except json.JSONDecodeError:
                 pass
     return events
-
-
-def parse_ts(ts):
-    if not ts:
-        return None
-    try:
-        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
-    except Exception:
-        return None
-
-
-def dur_s(start_ts, end_ts):
-    a, b = parse_ts(start_ts), parse_ts(end_ts)
-    if a and b:
-        return round((b - a).total_seconds(), 1)
-    return None
 
 
 def extract_turns(events):
@@ -232,18 +273,7 @@ def extract_meta(events, session_dir, turns, permission_waits, session_start_ts,
             if m and (not models or models[-1] != m):
                 models.append(m)
 
-    tool_counts = {}
-    failed_tools = 0
-    total_tools = 0
-    for turn in turns:
-        for step in turn["steps"]:
-            for tool in step["tools"]:
-                tool_counts[tool["name"]] = tool_counts.get(tool["name"], 0) + 1
-                total_tools += 1
-                if not tool["success"]:
-                    failed_tools += 1
-
-    total_steps = sum(len(t["steps"]) for t in turns)
+    stats = aggregate_turn_stats(turns)
     total_perm_wait = sum(p["wait_s"] for p in permission_waits)
     session_dur = dur_s(session_start_ts, session_end_ts)
 
@@ -255,15 +285,279 @@ def extract_meta(events, session_dir, turns, permission_waits, session_start_ts,
         "created_at": ws.get("created_at", ""),
         "models": models,
         "total_turns": len(turns),
-        "total_steps": total_steps,
-        "total_tools": total_tools,
-        "tool_counts": tool_counts,
-        "failed_tools": failed_tools,
+        "total_steps": stats["total_steps"],
+        "total_tools": stats["total_tools"],
+        "tool_counts": stats["tool_counts"],
+        "failed_tools": stats["failed_tools"],
         "permission_waits": permission_waits,
         "total_perm_wait_s": total_perm_wait,
         "session_duration_s": session_dur,
     }
 
+
+class CopilotSource:
+    label = "Copilot CLI"
+
+    def find_sessions(self, lean_repo):
+        return [
+            SessionInfo(created=created, session_id=sid, name=name, source=self, ref=session_dir)
+            for created, sid, name, session_dir in find_copilot_sessions(lean_repo)
+        ]
+
+    def load(self, info):
+        session_dir = info.ref
+        events = load_events(session_dir)
+        turns, permission_waits, session_start_ts, session_end_ts = extract_turns(events)
+        meta = extract_meta(events, session_dir, turns, permission_waits, session_start_ts, session_end_ts)
+        return turns, meta
+
+
+# ---------------------------------------------------------------------------
+# Claude Code source
+# ---------------------------------------------------------------------------
+
+def claude_projects_dir():
+    return Path.home() / ".claude" / "projects"
+
+
+def claude_repo_dir_name(lean_repo):
+    return str(lean_repo).replace("\\", "/").replace("/", "-")
+
+
+def load_claude_transcript(path):
+    events = []
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if line:
+            try:
+                events.append(json.loads(line))
+            except json.JSONDecodeError:
+                pass
+    return events
+
+
+def find_claude_sessions(lean_repo):
+    repo_dir = claude_projects_dir() / claude_repo_dir_name(lean_repo)
+    if not repo_dir.exists():
+        return []
+
+    matches = []
+    for path in repo_dir.glob("*.jsonl"):
+        try:
+            events = load_claude_transcript(path)
+        except OSError:
+            continue
+
+        created = None
+        title = None
+        first_user_text = None
+        for ev in events:
+            ts = ev.get("timestamp")
+            if ts and created is None:
+                created = ts
+            if ev.get("type") == "ai-title" and ev.get("aiTitle") and title is None:
+                title = ev["aiTitle"]
+            if (
+                first_user_text is None
+                and ev.get("type") == "user"
+                and not ev.get("isMeta")
+                and isinstance(ev.get("message", {}).get("content"), str)
+                and ev["message"]["content"].strip()
+            ):
+                first_user_text = ev["message"]["content"].strip()
+
+        if created is None:
+            continue
+        name = title or (first_user_text or "Untitled")[:60]
+        matches.append((created, path.stem, name, path))
+
+    return sorted(matches, reverse=True)
+
+
+def _claude_tool_result_text(content):
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return "\n".join(
+            block.get("text", "") for block in content
+            if isinstance(block, dict) and block.get("type") == "text"
+        )
+    return ""
+
+
+def extract_claude_turns(events):
+    """
+    Walk transcript lines chronologically. A Turn starts at a user-role line whose
+    content is real text (not a tool_result block). Each assistant line is one Step,
+    since Claude Code already bundles one step's thinking/text/tool_use blocks per line.
+
+    Returns: (turns, session_start_ts, session_end_ts)
+    """
+    tool_use_ts = {}
+    tool_results = {}
+    for ev in events:
+        if ev.get("isSidechain"):
+            continue
+        if ev.get("type") == "assistant":
+            for block in ev.get("message", {}).get("content") or []:
+                if isinstance(block, dict) and block.get("type") == "tool_use" and block.get("id"):
+                    tool_use_ts[block["id"]] = ev.get("timestamp")
+        elif ev.get("type") == "user":
+            content = ev.get("message", {}).get("content")
+            if isinstance(content, list):
+                for block in content:
+                    if isinstance(block, dict) and block.get("type") == "tool_result" and block.get("tool_use_id"):
+                        tool_results[block["tool_use_id"]] = {
+                            "text": _claude_tool_result_text(block.get("content")),
+                            "success": not block.get("is_error", False),
+                            "end_ts": ev.get("timestamp"),
+                        }
+
+    turns = []
+    current_turn = None
+    session_start_ts = None
+    session_end_ts = None
+
+    for ev in events:
+        ts = ev.get("timestamp")
+        if ts:
+            if session_start_ts is None:
+                session_start_ts = ts
+            session_end_ts = ts
+
+        if ev.get("isSidechain"):
+            continue
+
+        t = ev.get("type")
+        if t == "user":
+            if ev.get("isMeta"):
+                continue
+            content = ev.get("message", {}).get("content")
+            if isinstance(content, str):
+                text = content.strip()
+            elif isinstance(content, list):
+                text = "\n".join(
+                    b.get("text", "") for b in content
+                    if isinstance(b, dict) and b.get("type") == "text"
+                ).strip()
+            else:
+                text = ""
+            if not text or text.startswith(("<command-name>", "<command-message>")):
+                continue
+
+            if current_turn:
+                turns.append(current_turn)
+            current_turn = {
+                "user": text,
+                "user_ts": ts,
+                "steps": [],
+                "duration_s": None,
+            }
+
+        elif t == "assistant" and current_turn is not None:
+            blocks = ev.get("message", {}).get("content") or []
+            reasoning_parts, text_parts, step_tools = [], [], []
+            for block in blocks:
+                if not isinstance(block, dict):
+                    continue
+                btype = block.get("type")
+                if btype == "thinking" and block.get("thinking"):
+                    reasoning_parts.append(block["thinking"])
+                elif btype == "text" and block.get("text"):
+                    text_parts.append(block["text"])
+                elif btype == "tool_use":
+                    tid = block.get("id")
+                    res = tool_results.get(tid, {})
+                    step_tools.append({
+                        "name": block.get("name", ""),
+                        "args": block.get("input") or {},
+                        "result": res.get("text", ""),
+                        "success": res.get("success", True),
+                        "duration_s": dur_s(tool_use_ts.get(tid), res.get("end_ts")),
+                        "perm_wait_s": None,  # no permission-wait concept in this transcript format
+                    })
+
+            reasoning = "\n".join(reasoning_parts).strip()
+            text = "\n".join(text_parts).strip()
+            if text or reasoning or step_tools:
+                current_turn["steps"].append({
+                    "text": text,
+                    "reasoning": reasoning,
+                    "output_tokens": 0,
+                    "step_ts": ts,
+                    "tools": step_tools,
+                })
+            current_turn["duration_s"] = dur_s(current_turn["user_ts"], ts)
+
+    if current_turn:
+        turns.append(current_turn)
+
+    return turns, session_start_ts, session_end_ts
+
+
+def extract_claude_meta(events, info, turns, session_start_ts, session_end_ts):
+    models = []
+    repo = ""
+    branch = ""
+    for ev in events:
+        if ev.get("cwd"):
+            repo = ev["cwd"]
+        if ev.get("gitBranch"):
+            branch = ev["gitBranch"]
+        if ev.get("type") == "assistant":
+            m = ev.get("message", {}).get("model", "")
+            if m and (not models or models[-1] != m):
+                models.append(m)
+
+    stats = aggregate_turn_stats(turns)
+
+    return {
+        "session_id": info.session_id,
+        "name": info.name,
+        "repo": repo,
+        "branch": branch,
+        "created_at": info.created,
+        "models": models,
+        "total_turns": len(turns),
+        "total_steps": stats["total_steps"],
+        "total_tools": stats["total_tools"],
+        "tool_counts": stats["tool_counts"],
+        "failed_tools": stats["failed_tools"],
+        "permission_waits": None,       # untracked: this transcript format has no approval-wait signal
+        "total_perm_wait_s": None,
+        "session_duration_s": dur_s(session_start_ts, session_end_ts),
+    }
+
+
+class ClaudeCodeSource:
+    label = "Claude Code"
+
+    def find_sessions(self, lean_repo):
+        return [
+            SessionInfo(created=created, session_id=sid, name=name, source=self, ref=path)
+            for created, sid, name, path in find_claude_sessions(lean_repo)
+        ]
+
+    def load(self, info):
+        events = load_claude_transcript(info.ref)
+        turns, session_start_ts, session_end_ts = extract_claude_turns(events)
+        meta = extract_claude_meta(events, info, turns, session_start_ts, session_end_ts)
+        return turns, meta
+
+
+SOURCES = [CopilotSource(), ClaudeCodeSource()]
+
+
+def find_all_sessions(lean_repo):
+    sessions = []
+    for source in SOURCES:
+        sessions.extend(source.find_sessions(lean_repo))
+    return sorted(sessions, key=lambda info: info.created, reverse=True)
+
+
+# ---------------------------------------------------------------------------
+# Source-agnostic rendering — operates only on the shared turns/meta shape
+# ---------------------------------------------------------------------------
 
 def truncate_result(text):
     """Keep head + tail so verdict lines at the end are never lost."""
@@ -321,6 +615,15 @@ def diff_summary(old_str, new_str):
     return summary
 
 
+def _first(args, *keys):
+    """First non-empty value among keys — lets one render branch cover several sources' arg names."""
+    for k in keys:
+        v = args.get(k)
+        if v:
+            return v
+    return ""
+
+
 def build_blind_spot_resolution(turns):
     """
     Pre-compute which blind-spot views are later resolved by a ranged read.
@@ -331,9 +634,9 @@ def build_blind_spot_resolution(turns):
     for ti, turn in enumerate(turns):
         for si, step in enumerate(turn["steps"]):
             for vi, tool in enumerate(step["tools"]):
-                if tool["name"] == "view":
-                    path = tool["args"].get("path", "")
-                    has_range = bool(tool["args"].get("view_range"))
+                if tool["name"] in ("view", "Read"):
+                    path = _first(tool["args"], "file_path", "path")
+                    has_range = bool(tool["args"].get("view_range") or tool["args"].get("offset"))
                     result = tool["result"].strip()
                     is_blind = "too large to read at once" in result.lower()
                     all_views.append((ti, si, vi, path, has_range, is_blind))
@@ -373,17 +676,23 @@ def render_tool(tool, resolved_at=False):
 
     result_text = tool["result"].strip()
 
-    if name == "powershell":
+    if name in ("powershell", "Bash"):
         label = f"_{args.get('description', '')}_" if args.get("description") else ""
-        cmd = args.get("command", "").strip()
+        cmd = (args.get("command", "") or "").strip()
         header = f"**`{name}`** [{status}]{dur} {label}"
         body = f"```\n{cmd}\n```" if cmd else ""
         result_block = f"```\n{truncate_result(result_text)}\n```" if result_text else ""
 
-    elif name in ("view", "glob", "grep"):
-        label = args.get("path", args.get("pattern", ""))
+    elif name in ("view", "glob", "grep", "Read", "Glob", "Grep"):
+        label = _first(args, "file_path", "path", "pattern")
         vrange = args.get("view_range")
-        range_tag = f" L{vrange[0]}-{vrange[1]}" if vrange else ""
+        offset, limit = args.get("offset"), args.get("limit")
+        if vrange:
+            range_tag = f" L{vrange[0]}-{vrange[1]}"
+        elif offset:
+            range_tag = f" L{offset}+{limit}" if limit else f" L{offset}+"
+        else:
+            range_tag = ""
         header = f"**`{name}`** [{status}]{dur} `{label}`{range_tag}"
         body = ""
         if "too large to read at once" in result_text.lower():
@@ -394,10 +703,11 @@ def render_tool(tool, resolved_at=False):
         else:
             result_block = f"```\n{truncate_result(result_text)}\n```" if result_text else ""
 
-    elif name in ("edit", "create"):
-        label = args.get("path", "")
-        old_str = args.get("old_str", "") or ""
-        new_str = args.get("new_str", args.get("file_text", "")) or ""
+    elif name in ("edit", "create", "Edit", "Write"):
+        label = _first(args, "file_path", "path")
+        is_new_file = name in ("create", "Write")
+        old_str = "" if is_new_file else (_first(args, "old_string", "old_str") or "")
+        new_str = _first(args, "new_string", "new_str", "file_text", "content") or ""
         old_lines = old_str.splitlines()
         new_lines = new_str.splitlines()
         removed = len(old_lines)
@@ -409,7 +719,7 @@ def render_tool(tool, resolved_at=False):
         ))
         diff_body = "".join(unified).rstrip() if unified else new_str.strip()
         header = f"**`{name}`** [{status}]{dur} `{label}`"
-        summary_label = f"-{removed} +{added} lines" if name == "edit" else f"+{added} lines (new file)"
+        summary_label = f"+{added} lines (new file)" if is_new_file else f"-{removed} +{added} lines"
         body = f"<details><summary>{summary_label}</summary>\n\n```diff\n{diff_body}\n```\n\n</details>"
         result_block = ""  # "File updated." is noise
 
@@ -443,8 +753,12 @@ def render_markdown(meta, turns, permission_waits):
 
     model_str = ", ".join(meta["models"]) if meta["models"] else "unknown"
     tool_breakdown = ", ".join(f"{k}x{v}" for k, v in sorted(meta["tool_counts"].items()))
-    perm_count = len(permission_waits)
-    perm_wait_str = fmt_dur(meta["total_perm_wait_s"]) if perm_count else "none"
+    if permission_waits is None:
+        perm_field = "untracked"
+    else:
+        perm_count = len(permission_waits)
+        perm_wait_str = fmt_dur(meta["total_perm_wait_s"]) if perm_count else "none"
+        perm_field = f"{perm_count} ({perm_wait_str} total)"
 
     lines = [
         f"# Session: {meta['name']}",
@@ -461,7 +775,7 @@ def render_markdown(meta, turns, permission_waits):
         f"| AI steps | {meta['total_steps']} |",
         f"| Tool calls | {meta['total_tools']} ({tool_breakdown}) |",
         f"| Failed tools | {meta['failed_tools']} |",
-        f"| Permission waits | {perm_count} ({perm_wait_str} total) |",
+        f"| Permission waits | {perm_field} |",
         f"",
         f"## Format key",
         f"",
@@ -522,24 +836,27 @@ def slugify(name):
 def main():
     args = sys.argv[1:]
     lean_repo = load_lean_repo()
-    sessions = find_sessions(lean_repo)
+    sessions = find_all_sessions(lean_repo)
 
     if not sessions:
-        print(f"No Copilot CLI sessions found for: {lean_repo}")
+        print(f"No sessions found for: {lean_repo}")
         sys.exit(0)
+
+    multi_source = len({info.source.label for info in sessions}) > 1
 
     if "--list" in args:
         print(f"Sessions for {lean_repo}:\n")
-        for created, sid, name, _ in sessions:
-            print(f"  {sid[:8]}  {created[:10]}  {name}")
+        for info in sessions:
+            tag = f"  [{info.source.label}]" if multi_source else ""
+            print(f"  {info.session_id[:8]}  {info.created[:10]}  {info.name}{tag}")
         sys.exit(0)
 
     target = None
     if args:
         prefix = args[0].lower()
-        for item in sessions:
-            if item[1].lower().startswith(prefix):
-                target = item
+        for info in sessions:
+            if info.session_id.lower().startswith(prefix):
+                target = info
                 break
         if not target:
             print(f"No session found with ID prefix: {args[0]}")
@@ -548,26 +865,24 @@ def main():
     else:
         target = sessions[0]
 
-    created, sid, name, session_dir = target
-    print(f"Importing: {name} ({sid[:8]}) from {created[:10]}")
+    source_tag = f" [{target.source.label}]" if multi_source else ""
+    print(f"Importing: {target.name} ({target.session_id[:8]}) from {target.created[:10]}{source_tag}")
 
-    events = load_events(session_dir)
-    turns, permission_waits, session_start_ts, session_end_ts = extract_turns(events)
-    meta = extract_meta(events, session_dir, turns, permission_waits, session_start_ts, session_end_ts)
+    turns, meta = target.source.load(target)
 
     total_steps = sum(len(t["steps"]) for t in turns)
-    print(f"  {len(events)} events -> {len(turns)} turns, {total_steps} steps, {meta['total_tools']} tool calls")
+    print(f"  {len(turns)} turns, {total_steps} steps, {meta['total_tools']} tool calls")
 
     try:
-        date_str = datetime.fromisoformat(created.replace("Z", "+00:00")).strftime("%Y-%m-%d")
+        date_str = datetime.fromisoformat(target.created.replace("Z", "+00:00")).strftime("%Y-%m-%d")
     except Exception:
         date_str = datetime.now().strftime("%Y-%m-%d")
 
     output_dir = Path(__file__).parent.parent / "sessions" / "readable"
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"{date_str}-{slugify(name)}.md"
+    output_path = output_dir / f"{date_str}-{slugify(target.name)}.md"
 
-    content = render_markdown(meta, turns, permission_waits)
+    content = render_markdown(meta, turns, meta["permission_waits"])
     output_path.write_text(content, encoding="utf-8")
 
     print(f"  Written to: {output_path}")

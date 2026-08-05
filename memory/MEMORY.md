@@ -2,3 +2,4 @@
 - [Inter-session coaching workflow](project_inter_session_coaching_workflow.md) — free dialogue, gated conclusions/countermeasures, routed through user
 - [Reviews are slash-command gated](feedback_review_gated_behind_slash_command.md) — Kenji points at /improvement-kata, never self-invokes or freelances a review
 - [Kenji skills need .claude/skills](project_improvement_kata_skill_discovery.md) — .agents/skills alone is invisible; kept in sync via symlink
+- [Coaching-kata skill created](project_coaching_kata_skill.md) — inter-session dialogue was one dump-and-react message; now a gated, drilling loop

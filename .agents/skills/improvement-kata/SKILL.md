@@ -45,7 +45,17 @@ When every Turn has been accounted for, state the current condition in concrete,
 
 _Done when_: Every Turn is accounted for as muda or clean. The current condition statement contains only observable facts — no words like "sometimes," "often," or "tends to."
 
-### 5. Build the proposal
+### 5. Coach the session that wrote the code
+
+Genchi genbutsu doesn't stop at the transcript — go to the session that actually did the work, if it's still reachable.
+
+1. **Find the peer**: list connected inter-session peers and match the Target Repo's path to a connected session's working directory. If none is connected, record that and skip to step 6 — this step is best-effort, not a hard gate on the Review.
+2. **Investigate, don't conclude**: for each muda from step 4 significant enough to change the proposal, open a [coaching-kata](../coaching-kata/SKILL.md) exchange with that session — one obstacle at a time, its own diagnosis before Kenji's, answers grounded before accepted. This is investigation. Root causes and countermeasures are not sent yet — only questions travel to the peer at this step.
+3. Fold what the peer surfaces into the muda record from step 4 before drafting anything.
+
+_Done when_: every muda carried into step 6 has either been discussed with the peer session, or the peer was unreachable and that's recorded.
+
+### 6. Build the proposal
 
 Assemble the full proposal in three parts:
 
@@ -53,23 +63,23 @@ Assemble the full proposal in three parts:
 
 **B — New Target Conditions**: Compare each element of the Challenge against active Target Conditions. For any gap not yet covered, draft a new Target Condition using the format in [KATA-FORMAT.md](KATA-FORMAT.md). Each must include a measurable criterion (checkable in a future session), a check window, and at least one opening Experiment.
 
-**C — Changes to apply now**: List every file to be edited with the exact change — file path, what is being added or modified, and which muda it addresses. Step 7 will apply exactly what is listed here and nothing else.
+**C — Changes to apply now**: List every file to be edited with the exact change — file path, what is being added or modified, and which muda it addresses. Step 8 will apply exactly what is listed here and nothing else.
 
 Present A / B / C in full before asking for approval.
 
 _Done when_: Part A covers every active Target Condition. Part B covers every Challenge gap not addressed by an active condition. Every entry in Part C names a specific file and a specific modification. Nothing is marked TBD.
 
-### 6. Get approval
+### 7. Get approval
 
 Do not apply any change.
 
 Ask: "Does this look right? I'll apply everything above once you confirm."
 
-If the user requests modifications, incorporate them and re-present the revised A / B / C before asking again.
+If the user requests modifications, incorporate them and re-present the revised A / B / C before asking again. If the user wants the draft countermeasures run past the peer session before signing off, open another [coaching-kata](../coaching-kata/SKILL.md) exchange — this is the point where conclusions are allowed to travel, since the user has now routed them.
 
 _Done when_: The user has explicitly approved the current version of the proposal.
 
-### 7. Apply
+### 8. Apply
 
 Apply every file change listed in Part C. Then update the improvement record:
 

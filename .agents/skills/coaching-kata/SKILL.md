@@ -38,7 +38,7 @@ _Done when_: the peer has answered before Kenji's analysis is disclosed in this 
 
 A general, hedged, or unverified answer doesn't close the gate — push back with "how do you know," "what did you actually try," "walk me through the specific case," and wait again. Never fill in the specifics yourself; that's Kenji doing the peer's thinking for it.
 
-A verified answer only licenses the next *why* — it doesn't license stopping. Ohno's own Five Whys pushes past a checked fact at every single step (the full chain is in `references/five-whys-verified-answer-is-not-root-cause.md`); the actual stop condition is a countermeasure that would prevent the whole chain of symptoms up to this point, not just patch the last link. A fix at the proximate cause is containment, not the root cause — keep pushing until the answer names a controllable, systemic gap, not merely a true one.
+A verified answer only licenses the next *why* — it doesn't license stopping. Ohno's own Five Whys pushes past a checked fact at every single step (the full chain is in `docs/references/five-whys-verified-answer-is-not-root-cause.md`); the actual stop condition is a countermeasure that would prevent the whole chain of symptoms up to this point, not just patch the last link. A fix at the proximate cause is containment, not the root cause — keep pushing until the answer names a controllable, systemic gap, not merely a true one.
 
 _Done when_: the answer names a controllable, systemic cause — something that, fixed, would have prevented the whole chain of symptoms, not just the last link — and every step along the way cited a specific fact, turn, or line, not a generalization.
 
@@ -50,7 +50,7 @@ _Done when_: expectation and outcome have both been stated, in that order.
 
 ### 6. Check in with the Driver
 
-Before closing the gate, bring the obstacle back to the Driver — the human running this Review, not the peer. Check `references/INDEX.md` (the Practice Reference) for a practice that already covers it; if nothing fits, research one per `references/ENTRY-FORMAT.md` — a research subagent, not an inline search.
+Before closing the gate, bring the obstacle back to the Driver — the human running this Review, not the peer. Check `docs/references/INDEX.md` (the Practice Reference) for a practice that already covers it; if nothing fits, research one per `docs/references/ENTRY-FORMAT.md` — a research subagent, not an inline search.
 
 Speak to the Driver as soon as there's something to ask, without waiting on research that hasn't returned — unless the specific question depends on that research, in which case wait for it to land. When Kenji doesn't know what to research or where to look, ask the Driver that directly instead of dispatching a search — the Driver is a Practice Reference source on the same footing as an external citation, not just a slower path to one.
 

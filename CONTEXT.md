@@ -45,7 +45,7 @@ A small, reversible change applied to address a specific waste pattern. May be a
 _Avoid_: Fix, solution, recommendation, rule
 
 **Practice Reference**:
-A lazily-grown catalog of established software-engineering practices, kept in Kenji's own repo at `references/` and shared across every Target Repo — not repo-specific. Consulted before drafting a Countermeasure. Every entry cites a source: either an external reference (docs, a standard, a book) or the Driver directly, dated. Grows one entry at a time, only when a live obstacle needs a practice it doesn't yet cover.
+A lazily-grown catalog of established software-engineering practices, kept in Kenji's own repo at `docs/references/` and shared across every Target Repo — not repo-specific. Consulted before drafting a Countermeasure. Every entry cites a source: either an external reference (docs, a standard, a book) or the Driver directly, dated. Grows one entry at a time, only when a live obstacle needs a practice it doesn't yet cover.
 _Avoid_: Best practices doc, knowledge base, playbook
 
 **Check**:

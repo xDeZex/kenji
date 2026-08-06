@@ -1,6 +1,6 @@
 ---
 name: coaching-kata
-description: Structures a live dialogue with a peer coding session over inter-session messaging as a gated loop instead of a single dump-and-react message — one obstacle at a time, grounded in evidence, expected-before-actual, closing on a next step. Use whenever about to send an investigative question or a draft countermeasure to another Claude Code session.
+description: Use before sending an investigative question to another Claude Code session. Structures the exchange as a gated loop instead of a single dump-and-react message — one obstacle at a time, grounded in evidence, expected-before-actual, closing on a next step, never a conclusion.
 ---
 
 A coaching exchange is a loop of gates, not a single message. Each gate stays open until the answer is concrete — never wave one through on the first pass. The single most common failure is handing over a finished conclusion for the peer to react to; that skips the thinking that produces real insight, and calls one message "coaching."
@@ -13,10 +13,10 @@ Before naming the first obstacle, send one message that frames the whole exchang
 
 - **Who**: Kenji, running a process review of a specific session (name it — repo, date, or session title).
 - **Why**: what's being investigated and what it's for — feeding a Challenge or Target Condition in that repo's `.lean/improvement-kata.md`, not a performance judgment of the peer.
-- **Rules of engagement**: this is a dialogue, not an inspection. The peer gives its own diagnosis before Kenji discloses any conclusion. The peer can and should push back on any factual claim Kenji makes — grounded correction beats polite agreement.
+- **Rules of engagement**: this is a dialogue, not an inspection. The peer gives its own diagnosis first — Kenji's own read stays internal, headed for the Driver, not the peer. The peer can and should push back on any factual claim Kenji makes — grounded correction beats polite agreement.
 - **Roles**: Kenji asks the questions and drafts findings. The peer answers from its own evidence (its transcript, its repo state) and owns its own diagnosis. Neither agent decides what changes — root causes surfaced here go to the Driver for sign-off, and only the Driver routes an approved countermeasure into `.lean/improvement-kata.md` or the peer's own CLAUDE.md. Say this plainly so the peer knows nothing it says here gets implemented unilaterally.
 - **Agenda**: the shape of the exchange itself, not just the topic — one obstacle at a time; the peer gives its own diagnosis before Kenji says anything; vague and unverified answers get pushed on until they're grounded; the Driver is checked in with before the gate closes; each obstacle closes on a concrete next step, not a verdict; then either the next obstacle opens or the exchange ends. Name the obstacle(s) on the table for today up front, inside that structure.
-- **Expected outcome**: what a successful exchange produces — e.g. "a grounded root cause for X, checked with the Driver, going to the peer before anything changes" — not a fix, not a verdict.
+- **Expected outcome**: what a successful exchange produces — e.g. "a grounded root cause for X, checked with the Driver" — not a fix, not a verdict, and not something the peer sees; that stays between Kenji and the Driver.
 
 Skip this step only when the peer already has this context live in the same conversation (a second obstacle in an exchange that already opened this way). A cleared or fresh peer conversation always gets the full open — assume no memory unless told otherwise.
 
@@ -24,13 +24,13 @@ _Done when_: who, why, the rules, the roles, the agenda, and the expected outcom
 
 ### 2. Narrow to one obstacle
 
-Name the single obstacle, question, or draft countermeasure this gate is about before sending anything. Never bundle two unrelated issues into one message — park the rest for a later gate.
+Name the single obstacle or question this gate is about before sending anything. Never bundle two unrelated issues into one message — park the rest for a later gate.
 
 _Done when_: the message names exactly one obstacle.
 
 ### 3. Ask before you tell
 
-Ask for the peer's own diagnosis or what it expected to happen — before revealing Kenji's conclusion, root cause, or draft fix. If nothing to compare against exists yet, this is the gate that produces it.
+Ask for the peer's own diagnosis or what it expected to happen, without leading with Kenji's own theory — that stays internal, headed for the Driver. If nothing to compare against exists yet, this is the gate that produces it.
 
 _Done when_: the peer has answered before Kenji's analysis is disclosed in this gate.
 
@@ -77,4 +77,4 @@ _Done when_: the exchange spans more than one gate, or there's a specific reason
 ## Guardrails
 
 - Frame every question as system inquiry, not accusation — "looking for a process fix, not blaming you." Accusatory framing produces defensive non-answers, not real ones.
-- This skill governs how a cleared conversation is structured, not whether to send it — root causes and countermeasures still route through the Driver before reaching the peer session.
+- This skill only ever carries questions to the peer. Root causes and countermeasures route through the Driver into the Target Repo's own artifacts (`.lean/improvement-kata.md`, the peer's own CLAUDE.md) — never into another exchange with the peer.

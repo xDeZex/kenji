@@ -45,15 +45,16 @@ When every Turn has been accounted for, state the current condition in concrete,
 
 _Done when_: Every Turn is accounted for as muda or clean. The current condition statement contains only observable facts — no words like "sometimes," "often," or "tends to."
 
-### 5. Coach the session that wrote the code
+### 5. Coach the session that wrote the code, and check in with the Driver
 
-Genchi genbutsu doesn't stop at the transcript — go to the session that actually did the work, if it's still reachable.
+Genchi genbutsu doesn't stop at the transcript — go to the session that actually did the work, if it's still reachable. Two separate things happen here for each muda from step 4 significant enough to change the proposal: the peer dialogue (best-effort, skippable) and the Driver check-in (never skippable).
 
-1. **Find the peer**: list connected inter-session peers and match the Target Repo's path to a connected session's working directory. If none is connected, record that and skip to step 6 — this step is best-effort, not a hard gate on the Review.
-2. **Investigate, don't conclude**: for each muda from step 4 significant enough to change the proposal, open a [coaching-kata](../coaching-kata/SKILL.md) exchange with that session — one obstacle at a time, its own diagnosis before Kenji's, answers grounded before accepted. This is investigation. Root causes and countermeasures are not sent yet — only questions travel to the peer at this step.
-3. Fold what the peer surfaces into the muda record from step 4 before drafting anything.
+1. **Find the peer**: list connected inter-session peers and match the Target Repo's path to a connected session's working directory.
+2. **If a peer is connected — investigate, don't conclude**: open a [coaching-kata](../coaching-kata/SKILL.md) exchange with that session — one obstacle at a time, its own diagnosis before Kenji's, answers grounded before accepted. This is investigation. Root causes are not sent to the peer yet — only questions travel there. The exchange's own gate 6 (Check in with the Driver) produces a Driver-confirmed candidate practice for step 6.
+3. **If no peer is connected**: record that. But still run coaching-kata's gate 6 directly, for each muda, against Kenji's own step-4 read standing in for a peer diagnosis — the Practice Reference consult and the Driver check-in are not part of what's skippable here, only the peer dialogue is.
+4. Fold what the peer surfaced (if any), and what the Driver confirmed, into the muda record from step 4 before drafting anything.
 
-_Done when_: every muda carried into step 6 has either been discussed with the peer session, or the peer was unreachable and that's recorded.
+_Done when_: every muda carried into step 6 has been checked in on with the Driver, via gate 6, peer or no peer. Each has also either been discussed with the peer session, or the peer was unreachable and that's recorded.
 
 ### 6. Build the proposal
 
@@ -63,7 +64,7 @@ Assemble the full proposal in three parts:
 
 **B — New Target Conditions**: Compare each element of the Challenge against active Target Conditions. For any gap not yet covered, draft a new Target Condition using the format in [KATA-FORMAT.md](KATA-FORMAT.md). Each must include a measurable criterion (checkable in a future session), a check window, and at least one opening Experiment.
 
-**C — Changes to apply now**: List every file to be edited with the exact change — file path, what is being added or modified, and which muda it addresses. Step 8 will apply exactly what is listed here and nothing else.
+**C — Changes to apply now**: List every file to be edited with the exact change — file path, what is being added or modified, and which muda it addresses. Draw each Countermeasure from `references/INDEX.md` (the Practice Reference) or a Driver-confirmed candidate from step 5 — check it first; if nothing covers it, research and add a cited entry per `references/ENTRY-FORMAT.md` (a research subagent, not an inline search). A Countermeasure must operate through a lever named in the Target Repo's own Harness; it must never make the Target Repo depend on Kenji's own artifacts (`.lean/*`, `sessions/*`) as something it's expected to consult on its own. Where the fix lives inside an existing Harness-lever line — a CLAUDE.md persona statement, say — rewrite that line in place: CLAUDE.md is the Harness, not a document to route around. Step 8 will apply exactly what is listed here and nothing else.
 
 Present A / B / C in full before asking for approval.
 
@@ -75,9 +76,9 @@ Do not apply any change.
 
 Ask: "Does this look right? I'll apply everything above once you confirm."
 
-If the user requests modifications, incorporate them and re-present the revised A / B / C before asking again. If the user wants the draft countermeasures run past the peer session before signing off, open another [coaching-kata](../coaching-kata/SKILL.md) exchange — this is the point where conclusions are allowed to travel, since the user has now routed them.
+If the Driver requests modifications, incorporate them and re-present the revised A / B / C before asking again. If the Driver wants the draft countermeasures run past the peer session before signing off, open another [coaching-kata](../coaching-kata/SKILL.md) exchange — this is the point where conclusions are allowed to travel, since the Driver has now routed them.
 
-_Done when_: The user has explicitly approved the current version of the proposal.
+_Done when_: The Driver has explicitly approved the current version of the proposal.
 
 ### 8. Apply
 
@@ -85,6 +86,6 @@ Apply every file change listed in Part C. Then update the improvement record:
 
 - **`.lean/improvement-kata.md` in the Target Repo**: mark `met` conditions, add new Target Conditions with their opening Experiments.
 
-If any approved change cannot be applied — file missing, conflict, or other failure — stop immediately. List every unapplied change and wait for the user to resolve the blockers before continuing.
+If any approved change cannot be applied — file missing, conflict, or other failure — stop immediately. List every unapplied change and wait for the Driver to resolve the blockers before continuing.
 
 _Done when_: Every change from Part C has been applied and verified by re-reading the edited section. `.lean/improvement-kata.md` is updated.

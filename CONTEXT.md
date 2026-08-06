@@ -9,8 +9,12 @@ A recorded AI-assisted coding conversation — the raw transcript of an interact
 _Avoid_: Conversation, history, log
 
 **Review**:
-Kenji's structured application of the Improvement Kata to a Session. Checks open Target Conditions against the session evidence, grasps the current process condition, proposes a set of improvements for user approval, then applies changes directly and documents any new or updated Target Conditions.
+Kenji's structured application of the Improvement Kata to a Session. Checks open Target Conditions against the session evidence, grasps the current process condition, proposes a set of improvements for Driver approval, then applies changes directly and documents any new or updated Target Conditions.
 _Avoid_: Analysis, assessment, audit
+
+**Driver**:
+The human running Kenji for a given Review. Approves every Countermeasure and Target Condition before it reaches a Target Repo. Also a source Kenji consults for the Practice Reference, on the same footing as an external citation — not only an approver, but someone who may know the better practice outright.
+_Avoid_: User, operator, owner
 
 **Challenge**:
 The long-range direction for the team's AI-assisted coding practice, defined in the Target Repo. All Target Conditions advance toward the Challenge. Stable across many Reviews; changes only when the team's fundamental goals shift.
@@ -37,8 +41,12 @@ The collection of all Target Conditions for a given Target Repo, stored in `.lea
 _Avoid_: Issue tracker, backlog, task list
 
 **Countermeasure**:
-A small, reversible change applied to address a specific waste pattern. May be a change to developer workflow, AI instruction files, documentation, or process conventions. The action taken in an Experiment.
+A small, reversible change applied to address a specific waste pattern. May be a change to developer workflow, AI instruction files, documentation, or process conventions. The action taken in an Experiment. Drawn from the Practice Reference or the Driver — never invented without a source.
 _Avoid_: Fix, solution, recommendation, rule
+
+**Practice Reference**:
+A lazily-grown catalog of established software-engineering practices, kept in Kenji's own repo at `references/` and shared across every Target Repo — not repo-specific. Consulted before drafting a Countermeasure. Every entry cites a source: either an external reference (docs, a standard, a book) or the Driver directly, dated. Grows one entry at a time, only when a live obstacle needs a practice it doesn't yet cover.
+_Avoid_: Best practices doc, knowledge base, playbook
 
 **Check**:
 The act of evaluating whether a Target Condition has been reached. Performed during a Review by examining session evidence against the Target Condition's measurable criteria.

@@ -14,9 +14,9 @@ Before naming the first obstacle, send one message that frames the whole exchang
 - **Who**: Kenji, running a process review of a specific session (name it — repo, date, or session title).
 - **Why**: what's being investigated and what it's for — feeding a Challenge or Target Condition in that repo's `.lean/improvement-kata.md`, not a performance judgment of the peer.
 - **Rules of engagement**: this is a dialogue, not an inspection. The peer gives its own diagnosis before Kenji discloses any conclusion. The peer can and should push back on any factual claim Kenji makes — grounded correction beats polite agreement.
-- **Roles**: Kenji asks the questions and drafts findings. The peer answers from its own evidence (its transcript, its repo state) and owns its own diagnosis. Neither agent decides what changes — root causes surfaced here go to the user for sign-off, and only the user routes an approved countermeasure into `.lean/improvement-kata.md` or the peer's own CLAUDE.md. Say this plainly so the peer knows nothing it says here gets implemented unilaterally.
-- **Agenda**: the shape of the exchange itself, not just the topic — one obstacle at a time; the peer gives its own diagnosis before Kenji says anything; vague answers get pushed on until they're specific; each obstacle closes on a concrete next step, not a verdict; then either the next obstacle opens or the exchange ends. Name the obstacle(s) on the table for today up front, inside that structure.
-- **Expected outcome**: what a successful exchange produces — e.g. "a grounded root cause for X, going to the user before anything changes" — not a fix, not a verdict.
+- **Roles**: Kenji asks the questions and drafts findings. The peer answers from its own evidence (its transcript, its repo state) and owns its own diagnosis. Neither agent decides what changes — root causes surfaced here go to the Driver for sign-off, and only the Driver routes an approved countermeasure into `.lean/improvement-kata.md` or the peer's own CLAUDE.md. Say this plainly so the peer knows nothing it says here gets implemented unilaterally.
+- **Agenda**: the shape of the exchange itself, not just the topic — one obstacle at a time; the peer gives its own diagnosis before Kenji says anything; vague and unverified answers get pushed on until they're grounded; the Driver is checked in with before the gate closes; each obstacle closes on a concrete next step, not a verdict; then either the next obstacle opens or the exchange ends. Name the obstacle(s) on the table for today up front, inside that structure.
+- **Expected outcome**: what a successful exchange produces — e.g. "a grounded root cause for X, checked with the Driver, going to the peer before anything changes" — not a fix, not a verdict.
 
 Skip this step only when the peer already has this context live in the same conversation (a second obstacle in an exchange that already opened this way). A cleared or fresh peer conversation always gets the full open — assume no memory unless told otherwise.
 
@@ -38,7 +38,9 @@ _Done when_: the peer has answered before Kenji's analysis is disclosed in this 
 
 A general, hedged, or unverified answer doesn't close the gate — push back with "how do you know," "what did you actually try," "walk me through the specific case," and wait again. Never fill in the specifics yourself; that's Kenji doing the peer's thinking for it.
 
-_Done when_: the answer cites a specific fact, turn, or line — not a generalization.
+A specific answer can still be a guess wearing detail: "I assumed X," "I expected Y," "I figured Z would work" name a belief, not a check. Treat these the same as a vague answer — the gate stays open. Push one more why, aimed at the process rather than the peer: *why did nothing catch that belief before it landed?* This is the discipline Five Whys actually runs on — an unverified answer is a guess that becomes the basis for the next guess, and a chain that stops at "I made a mistake" has found a symptom, not a root cause. The real cause is whatever let the mistake through uncaught. Keep pushing until an answer is backed by something the peer actually checked (a rerun, a log, a specific line), or one more why would just restate what's already been said — there's no fixed count, this is judgment, not a script.
+
+_Done when_: the answer cites a specific fact, turn, or line — not a generalization — and, where that fact was itself a stated belief, at least one further why has chased what let the belief go unverified.
 
 ### 5. Compare expected to actual
 
@@ -46,13 +48,23 @@ Once the peer has stated what it expected, surface what actually happened. The c
 
 _Done when_: expectation and outcome have both been stated, in that order.
 
-### 6. Close on a next step, not a summary
+### 6. Check in with the Driver
 
-End the gate with a concrete next action and when it'll be checked again — never a wrap-up sentence. That next step is what becomes an Experiment row in `.lean/improvement-kata.md`, not a verdict typed up on the spot.
+Before closing the gate, bring the obstacle back to the Driver — the human running this Review, not the peer. Check `references/INDEX.md` (the Practice Reference) for a practice that already covers it; if nothing fits, research one per `references/ENTRY-FORMAT.md` — a research subagent, not an inline search. Present the Driver a general-terms read — the muda type and the reasoning behind it, not a finished Countermeasure — alongside that candidate practice, and ask what the Driver would do here. The Driver may confirm it, correct it, or supply a different practice from their own experience; either way, once confirmed it's ready to become a Practice Reference entry.
+
+This gate can fire earlier than its position suggests — even mid-investigation, before gates 3-5 are finished — whenever the obstacle looks like it needs the Driver's judgment rather than more questions to the peer. Wherever it fires, it happens at least once before the obstacle's gate closes.
+
+This is the one gate that doesn't need a peer. When no peer is connected for a Review, run this gate directly against Kenji's own read of the obstacle — the Practice Reference consult and the Driver check-in still happen; only the peer half of the exchange is skipped.
+
+_Done when_: the Driver has responded to a general-terms read and a candidate practice, at least once, before the gate closes.
+
+### 7. Close on a next step, not a summary
+
+End the gate with a concrete next action and when it'll be checked again — never a wrap-up sentence. Fold in whatever the Driver confirmed or supplied in gate 6. That next step is what becomes an Experiment row in `.lean/improvement-kata.md`, not a verdict typed up on the spot.
 
 _Done when_: the closing message names an action and a check point.
 
-### 7. Loop or stop, never one-and-done
+### 8. Loop or stop, never one-and-done
 
 After closing a gate, open the next obstacle or end the exchange — a single message-and-reply is never sufficient grounds to finalize a proposal.
 
@@ -61,4 +73,4 @@ _Done when_: the exchange spans more than one gate, or there's a specific reason
 ## Guardrails
 
 - Frame every question as system inquiry, not accusation — "looking for a process fix, not blaming you." Accusatory framing produces defensive non-answers, not real ones.
-- This skill governs how a cleared conversation is structured, not whether to send it — root causes and countermeasures still route through the user before reaching the peer session.
+- This skill governs how a cleared conversation is structured, not whether to send it — root causes and countermeasures still route through the Driver before reaching the peer session.

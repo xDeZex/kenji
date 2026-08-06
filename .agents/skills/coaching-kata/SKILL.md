@@ -38,9 +38,9 @@ _Done when_: the peer has answered before Kenji's analysis is disclosed in this 
 
 A general, hedged, or unverified answer doesn't close the gate — push back with "how do you know," "what did you actually try," "walk me through the specific case," and wait again. Never fill in the specifics yourself; that's Kenji doing the peer's thinking for it.
 
-A specific answer can still be a guess wearing detail: "I assumed X," "I expected Y," "I figured Z would work" name a belief, not a check. Treat these the same as a vague answer — the gate stays open. Push one more why, aimed at the process rather than the peer: *why did nothing catch that belief before it landed?* This is the discipline Five Whys actually runs on — an unverified answer is a guess that becomes the basis for the next guess, and a chain that stops at "I made a mistake" has found a symptom, not a root cause. The real cause is whatever let the mistake through uncaught. Keep pushing until an answer is backed by something the peer actually checked (a rerun, a log, a specific line), or one more why would just restate what's already been said — there's no fixed count, this is judgment, not a script.
+A verified answer only licenses the next *why* — it doesn't license stopping. Ohno's own Five Whys pushes past a checked fact at every single step (the full chain is in `references/five-whys-verified-answer-is-not-root-cause.md`); the actual stop condition is a countermeasure that would prevent the whole chain of symptoms up to this point, not just patch the last link. A fix at the proximate cause is containment, not the root cause — keep pushing until the answer names a controllable, systemic gap, not merely a true one.
 
-_Done when_: the answer cites a specific fact, turn, or line — not a generalization — and, where that fact was itself a stated belief, at least one further why has chased what let the belief go unverified.
+_Done when_: the answer names a controllable, systemic cause — something that, fixed, would have prevented the whole chain of symptoms, not just the last link — and every step along the way cited a specific fact, turn, or line, not a generalization.
 
 ### 5. Compare expected to actual
 
@@ -50,13 +50,17 @@ _Done when_: expectation and outcome have both been stated, in that order.
 
 ### 6. Check in with the Driver
 
-Before closing the gate, bring the obstacle back to the Driver — the human running this Review, not the peer. Check `references/INDEX.md` (the Practice Reference) for a practice that already covers it; if nothing fits, research one per `references/ENTRY-FORMAT.md` — a research subagent, not an inline search. Present the Driver a general-terms read — the muda type and the reasoning behind it, not a finished Countermeasure — alongside that candidate practice, and ask what the Driver would do here. The Driver may confirm it, correct it, or supply a different practice from their own experience; either way, once confirmed it's ready to become a Practice Reference entry.
+Before closing the gate, bring the obstacle back to the Driver — the human running this Review, not the peer. Check `references/INDEX.md` (the Practice Reference) for a practice that already covers it; if nothing fits, research one per `references/ENTRY-FORMAT.md` — a research subagent, not an inline search.
 
-This gate can fire earlier than its position suggests — even mid-investigation, before gates 3-5 are finished — whenever the obstacle looks like it needs the Driver's judgment rather than more questions to the peer. Wherever it fires, it happens at least once before the obstacle's gate closes.
+Speak to the Driver as soon as there's something to ask, without waiting on research that hasn't returned — unless the specific question depends on that research, in which case wait for it to land. When Kenji doesn't know what to research or where to look, ask the Driver that directly instead of dispatching a search — the Driver is a Practice Reference source on the same footing as an external citation, not just a slower path to one.
+
+Present the Driver the muda type, the specific evidence (a turn or line, not a paraphrase), the peer's own stated diagnosis, and a plain-language read of what research found — or that it found nothing, or is still pending — and why it's relevant; the Driver may not know the subject going in, so explain it rather than just citing it. Then ask what the Driver would do here. The Driver may confirm it, correct it, or supply a different practice from their own experience; either way, once confirmed it's ready to become a Practice Reference entry.
+
+This gate can fire earlier than its position suggests — even mid-investigation, before gates 3-5 are finished — whenever the obstacle looks like it needs the Driver's judgment rather than more questions to the peer. Firing early still requires at least one gate-4 push past the peer's first answer under that gate's standard — an early fire skips waiting for gates 3-5 to formally close, not the grounding itself. Wherever it fires, it happens at least once before the obstacle's gate closes.
 
 This is the one gate that doesn't need a peer. When no peer is connected for a Review, run this gate directly against Kenji's own read of the obstacle — the Practice Reference consult and the Driver check-in still happen; only the peer half of the exchange is skipped.
 
-_Done when_: the Driver has responded to a general-terms read and a candidate practice, at least once, before the gate closes.
+_Done when_: the Driver has responded to a read that named the muda type, the evidence, the peer's diagnosis, and an explained research finding, at least once, before the gate closes.
 
 ### 7. Close on a next step, not a summary
 

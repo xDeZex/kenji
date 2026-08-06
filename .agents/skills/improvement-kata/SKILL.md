@@ -52,11 +52,11 @@ _Done when_: Every Turn is accounted for as muda or clean. The current condition
 Genchi genbutsu doesn't stop at the transcript — go to the session that actually did the work, if it's still reachable. Two separate things happen here for each obstacle from step 4: the peer dialogue (best-effort, skippable) and the Driver check-in (never skippable).
 
 1. **Find the peer**: list connected inter-session peers and match the Target Repo's path to a connected session's working directory.
-2. **If a peer is connected — investigate, don't conclude**: open a [coaching-kata](../coaching-kata/SKILL.md) exchange with that session — one obstacle at a time, its own diagnosis before Kenji's, answers grounded before accepted. This is investigation. Root causes are never sent to the peer — only questions travel there. The exchange's own gate 6 (Check in with the Driver) produces a Driver-confirmed candidate practice for step 6.
-3. **If no peer is connected**: record that. But still run coaching-kata's gate 6 directly, for each obstacle, against Kenji's own step-4 read standing in for a peer diagnosis — the Practice Reference consult and the Driver check-in are not part of what's skippable here, only the peer dialogue is.
+2. **If a peer is connected — investigate, don't conclude**: open a [coaching-kata](../coaching-kata/SKILL.md) exchange with that session — one obstacle at a time, its own diagnosis before Kenji's, answers grounded before accepted. This is investigation. Root causes are never sent to the peer — only questions travel there. The exchange's own Driver check-in obligation produces a Driver-confirmed candidate practice for step 6.
+3. **If no peer is connected**: record that. But still run coaching-kata's Driver check-in obligation directly, for each obstacle, against Kenji's own step-4 read standing in for a peer diagnosis — the Practice Reference consult and the Driver check-in are not part of what's skippable here, only the peer dialogue is.
 4. Fold what the peer surfaced (if any), and what the Driver confirmed, into the obstacle's record from step 4 before drafting anything.
 
-_Done when_: every obstacle carried into step 6 has been checked in on with the Driver, via gate 6, peer or no peer. Each has also either been discussed with the peer session, or the peer was unreachable and that's recorded.
+_Done when_: every obstacle carried into step 6 has been checked in on with the Driver, via the Driver check-in obligation, peer or no peer. Each has also either been discussed with the peer session, or the peer was unreachable and that's recorded.
 
 ### 6. Build the proposal
 

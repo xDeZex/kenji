@@ -1,0 +1,13 @@
+# Leader inclusiveness closes the status gap — and admitting "I don't know" beats bluffing
+
+**Situation**: When there's a status or authority gap between the questioner and the person being asked to speak up (e.g. a reviewer questioning someone about their own past work), the lower-status party is measurably less likely to feel safe contributing — unless the questioner actively, repeatedly signals that their input is invited and valued, not just permitted once.
+
+**Practice**:
+
+- **Invite input from outside your own perspective, repeatedly, not once.** Nembhard & Edmondson's field study of hospital teams measured "leader inclusiveness" via three behaviors: encouraging others to take initiative, actively asking for input from people outside the leader's own group, and valuing others' opinions equally rather than deferring only to peers of similar standing. High inclusiveness closed nearly the entire psychological-safety gap between high- and low-status team members; low inclusiveness left it wide open.
+- **Treat this as an ongoing behavior pattern, not a one-time statement.** The construct was measured as a pattern across many interactions, not a single opening remark — a leader who invites input once in an intro message and then reverts to a directive stance doesn't get the effect.
+- **When you don't know something, say so plainly rather than bluffing a confident read.** Edmondson's "situational humility" concept — illustrated by Xerox CEO Anne Mulcahy, described as the "Master of I Don't Know" for answering "I don't know" rather than pretending expertise she didn't have — models the same underlying move: a leader visibly not having all the answers makes it safer for others to admit the same.
+
+**Source**: Nembhard, I.M. & Edmondson, A.C., "Making It Safe: The Effects of Leader Inclusiveness and Professional Status on Psychological Safety and Improvement Efforts in Health Care Teams," *Journal of Organizational Behavior* 27 (2006), 941–966 — leader inclusiveness scale (p. 952), status-moderation finding (p. 956), mediation to improvement engagement (p. 957). Amy Edmondson, *The Fearless Organization* (Wiley, 2018), Ch. 7 — "situational humility" and the Anne Mulcahy anecdote, via secondary sourcing (primary text not directly accessed). Note: a widely-circulated quote attributed to this chapter ("I may miss something, I need to hear from you") could not be independently confirmed and is deliberately not used here — do not cite it as a direct quote.
+
+**Added**: 2026-08-06, during a grill reviewing coaching-kata against the literature (not a Target Repo review — this one grounds Kenji's own skill).

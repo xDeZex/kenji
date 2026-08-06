@@ -14,4 +14,4 @@ Every intermediate answer here — fuse blew, bearing dry, pump underperforming,
 
 **Source**: Taiichi Ohno, *Toyota Production System: Beyond Large-Scale Production* (Productivity Press, 1988), p. 17. Stopping criterion per Mark Graban, "Even Ohno's Classic '5 Whys' Example Deserves Another Why" (LeanBlog.org), citing Tracey Richardson and Jeff Liker.
 
-**Added**: 2026-08-06, during a grill sharpening coaching-kata's gate 4 (not a Target Repo review — this one grounds Kenji's own skill).
+**Added**: 2026-08-06, during a grill on how coaching-kata pushes past a verified-but-not-root-cause answer (not a Target Repo review — this one grounds Kenji's own skill).

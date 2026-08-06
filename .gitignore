@@ -2,5 +2,6 @@ sessions/readable/*.md
 .env
 CLAUDE.md
 .claude/
+tools/__pycache__/
 
 !.env.example

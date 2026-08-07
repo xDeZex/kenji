@@ -47,7 +47,7 @@ _Done when_: the peer's diagnosis names a controllable, systemic cause and every
 
 ## Standing obligation: Driver check-in
 
-At some point during the investigation of every obstacle — before it closes, and at least once after the peer's first answer has been pushed on at least once — bring the obstacle to the Driver, the human running this Review, not the peer. Check `docs/references/INDEX.md` (the Practice Reference) for a practice that already covers it; if nothing fits, research one per `docs/references/ENTRY-FORMAT.md` (a research subagent, not an inline search).
+At some point during the investigation of every obstacle — before it closes, and at least once after the peer's first answer has been pushed on at least once — bring the obstacle to the Driver, the human running this Review, not the peer. Check `docs/references/INDEX.md` (the Practice Reference) for a practice that already covers it; if nothing fits, use the `research` skill to add one per `docs/references/ENTRY-FORMAT.md`.
 
 This obligation doesn't wait for a fixed slot — it can fire early, even to shape the next question sent to the peer. But what the Driver or Practice Reference surfaces informs the question; it never appears inside it. Naming a candidate practice or countermeasure to the peer turns an open question into a leading one — see `docs/references/open-non-leading-questions-and-agent-self-report.md`.
 

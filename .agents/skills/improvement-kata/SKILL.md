@@ -38,7 +38,7 @@ _Done when_: Every active Target Condition has a verdict. Every verdict has Turn
 
 Read the Readable Session again, this time Turn by Turn, hunting muda. For every Turn — not just the ones where something went wrong — record one of two things:
 
-- **Muda found**: name the type (rework, waiting, motion, overprocessing, defect), cite the Turn, write one line on why it is waste.
+- **Muda found**: name the type — Poppendieck's software-adapted seven: partially done work, extra features, relearning, handoffs, task switching, delays, defects — cite the Turn, write one line on why it is waste.
 - **No muda**: note it briefly and move on.
 
 When every Turn has been accounted for, state the current condition in concrete, observable terms. Not what the process should do. What it does, measured in the session.

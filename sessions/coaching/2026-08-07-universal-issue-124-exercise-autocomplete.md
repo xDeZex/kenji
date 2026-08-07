@@ -27,6 +27,8 @@ diagnosis first, before I share anything. And please push back on me —
 if something I say doesn't match what you actually saw, I'd rather be
 corrected than agreed with.
 
+//Driver comment: "before I share anything." Kenji shouldn't share anything
+
 I'll ask the questions and draft findings; you answer from your own
 evidence and own your own diagnosis. Neither of us decides what changes
 — root causes go to my Driver for sign-off, and only the Driver routes
@@ -45,6 +47,8 @@ you decided how to wire ExerciseNameAddField into
 active_workout_screen.dart and when the new autocomplete-dropdown tests
 for criteria 1 and 2 were written and first run. What actually came
 first?
+
+//Driver Comment: leading question: "What actually came first?"
 
 ---
 
@@ -84,6 +88,8 @@ moment, specifically? Walk me through what was going through the
 reasoning right before you wrote those tests — was there something
 about how the task had been framed up to that point, or something else
 entirely?
+
+//Driver comment: a bit leading, I think the questions doesn't have to be very long. Longer questions have a larger risk of leading.
 
 ---
 

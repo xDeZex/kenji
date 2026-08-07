@@ -4,6 +4,8 @@ Entries live in `docs/references/`, one file per entry: `docs/references/<slug>.
 
 Create an entry lazily — only when a live obstacle needs a practice this file doesn't already cover. Check `INDEX.md` first; don't duplicate an existing entry under a new slug.
 
+This is the counterpart to the general research (`docs/research/`): use it for findings on Countermeasures.
+
 ## Template
 
 ```md
@@ -12,7 +14,7 @@ Create an entry lazily — only when a live obstacle needs a practice this file 
 **Situation**: {the pattern or problem this addresses — concrete, not abstract}
 **Practice**: {the established practice itself, stated plainly}
 **Source**: {an external citation (doc, standard, book — with enough detail to find it again) OR "Driver, YYYY-MM-DD" when the Driver supplied or confirmed it directly}
-**Added**: YYYY-MM-DD, during review of {Target Repo}
+**Added**: YYYY-MM-DD, during review of {Target Repo} (or theme of current session)
 
 {Optional: one line on tradeoffs, or when this practice doesn't apply.}
 ```

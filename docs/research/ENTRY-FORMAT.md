@@ -13,7 +13,7 @@ This is the general-purpose counterpart to the Practice Reference (`docs/referen
 
 **Finding**: {the answer, stated plainly}
 **Source**: {primary source citation — official docs, source code, a spec, a first-party API — with enough detail to find it again}
-**Added**: YYYY-MM-DD
+**Added**: YYYY-MM-DD, during review of {Target Repo} (or theme of current session)
 
 {Optional: one line on caveats, or where the finding stops applying.}
 ```

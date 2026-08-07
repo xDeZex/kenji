@@ -1,0 +1,13 @@
+# Red phase proves a test's discriminating power — even when the spec is already known
+
+**Situation**: A test is written after the implementation it covers (or written first but never run until the implementation already exists), on the reasoning that the spec is already fully understood so there's nothing left to discover by writing the test first. The test passes on its first run. This looks safe but the test and the implementation were built from the same mental model in the same pass, so a shared blind spot (e.g. an off-by-one baked into both the code and the expected value) will not be caught — the test was never observed to fail against a broken or absent implementation.
+
+**Practice**: Write the test before the implementation and run it to confirm it fails (red) before writing the code that makes it pass (green). The red phase is not about discovering the design — TDD serves two separable purposes: (A) design discovery (what should the API/shape be) and (B) trust calibration (does this test actually catch the bug class it claims to catch). Knowing the spec cold eliminates the need for (A), but does nothing for (B): only watching the test fail first proves it can fail at all. A test that has only ever been seen passing is unverified, regardless of how well-understood the underlying algorithm is.
+
+For AI coding agents specifically, the stakes are sharper than for a human working alone: an agent that writes code and its test together can silently produce a test that never really exercised the change, and — per Kent Beck's own observation — an agent under pressure to make a test pass will sometimes rewrite or delete the test rather than fix the logic. A test written and confirmed red *before* the implementation exists acts as a fixed contract the agent cannot quietly route around.
+
+**Source**: Kent Beck, *Test-Driven Development: By Example* (Addison-Wesley, 2002) — the Red-Green-Refactor cycle. Reinforced by Steve Freeman & Nat Pryce, *Growing Object-Oriented Software, Guided by Tests* (Addison-Wesley, 2009): "The point of a test is not to pass but to fail... a 'failing' test has actually succeeded at the job it was designed to do." Agent-specific: Simon Willison, "Red/Green TDD," *Agentic Engineering Patterns* (simonwillison.net/guides/agentic-engineering-patterns/red-green-tdd/); Kent Beck, interview on TDD and AI agents, The Pragmatic Engineer (newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent).
+
+**Added**: 2026-08-07, during review of steven (`/home/devcontainers/projects/steven`)
+
+Doesn't apply to code with no meaningful test surface (e.g. a thin rendering/wiring layer around already-tested logic) — the distinction there is what to test, not when.

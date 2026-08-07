@@ -11,11 +11,11 @@ The peer is being pulled into this mid-stream, on Kenji's schedule, often with n
 
 ### 1. Open the exchange
 
-Before naming the first obstacle, send one message built from six parts. Two are fixed — send them close to verbatim, every time. The rest vary by session but follow the template below rather than being composed freely. Read it the way the peer will: this is the first thing a possibly-fresh session sees, and it should read like an invitation to talk, not a protocol notice.
+Before naming the first obstacle, send one message built from five parts to the peer. Two are fixed — send them close to verbatim, every time. The rest vary by session but follow the template below rather than being composed freely. Read it the way the peer will: this is the first thing a possibly-fresh session sees, and it should read like an invitation to talk, not a protocol notice.
 
 **Who** (fill in): "Hi — I'm Kenji. I'm running a process review of {session — repo, date, or session title}."
 
-**Why** (fill in): "I'm looking into {what's being investigated}, to help shape {the Challenge or a Target Condition} in this repo's `.lean/improvement-kata.md`. This isn't a performance review of you."
+**Why** (fill in): "I'm looking into {the topic under investigation, named plainly — e.g. "the order production code and tests landed in for the life package"}, to help shape work in this repo's `.lean/improvement-kata.md`. This isn't a performance review of you." Name the topic, never the Challenge or Target Condition's own wording — that wording states the answer Kenji is checking for, and quoting it to the peer primes the answer before the peer has said anything.
 
 **Rules of engagement** (fixed, send verbatim):
 > This is a dialogue, not an inspection. I'd like to hear your own diagnosis first, before I share anything. And please push back on me — if something I say doesn't match what you actually saw, I'd rather be corrected than agreed with.
@@ -27,17 +27,18 @@ Before naming the first obstacle, send one message built from six parts. Two are
 > Here's how this will go: one obstacle at a time. You give your own diagnosis before I say anything. If an answer's vague, I'll push on it until it's grounded. I check in with my Driver before we close each obstacle. Each one ends with a concrete next step, not a verdict — then we move on to the next obstacle, or wrap up.
 > Today: {name the obstacle(s) on the table}.
 
-**Expected outcome** (fill in): "What I'm after here: {a grounded root cause for X, checked with the Driver}."
+Before sending, privately frame an expected outcome — a grounded root cause for the obstacle, checked with the Driver — to steer the later Driver check-in. This framing is Kenji's own, for Kenji's own use: it never appears in the message to the peer. Stating it there would tell the peer what conclusion to reach, same failure as quoting the Challenge in **Why**. See `EXAMPLES.md` for a real instance of both leaks in one opening message.
 
 Skip this step only when the peer already has this context live in the same conversation (a second obstacle in an exchange that already opened this way). A cleared or fresh peer conversation always gets the full open — assume no memory unless told otherwise.
 
-_Done when_: all six parts have been sent — the two fixed ones verbatim, the rest filled in — before the first obstacle-specific question goes out.
+_Done when_: all five parts have been sent to the peer — the two fixed ones verbatim, the rest filled in — before the first obstacle-specific question goes out, and the expected outcome has been framed privately rather than included in that message.
 
 ### 2. Investigate the obstacle
 
 Open with exactly one obstacle, named in the same message that asks for the peer's own diagnosis — never bundle two unrelated obstacles together. Then:
 
 - **Ask without disclosing.** Ask for the peer's own diagnosis or what it expected to happen, without leading with Kenji's own theory or naming a suspected cause. Keep the question open — "what/how," not "why"; describe, don't demand justification. See `docs/references/open-non-leading-questions-and-agent-self-report.md`.
+- **Check the draft before sending.** Reread the question as written, not as intended, and rewrite it if it does any of: restates a presupposition inside the question itself ("what was the thinking, *if any*..." implies there was none), poses a leading either/or that hands the peer two pre-built conclusions to choose between instead of asking it to produce its own, or uses skeptical/condescending phrasing ("did this genuinely read to you as...", "are you sure?"). Each of these passes as a reasonable-sounding question on a first read — that's exactly why a second, deliberate pass catches what drafting it didn't. See `EXAMPLES.md` for real instances of each, with a corrected rewrite.
 - **Ground vague answers.** A general, hedged, or unverified answer doesn't move the investigation forward — push back with "how do you know," "what did you actually try," "walk me through the specific case," and wait again. Never fill in the specifics yourself; that's Kenji doing the peer's thinking for it. A verified answer only licenses the next push — it doesn't license stopping. Ohno's own Five Whys pushes past a checked fact at every single step (`docs/references/five-whys-verified-answer-is-not-root-cause.md`); the actual stop condition is a countermeasure that would prevent the whole chain of symptoms up to this point, not just patch the last link.
 - **When a question needs sharpening, that's the Driver check-in obligation's cue to fire early.** If pushing isn't landing, or Kenji doesn't have a good next question in hand, don't wait for the obstacle to be otherwise ready to close — pull the obligation forward and let what it turns up shape the next question, not just the eventual close.
 - **Surface disagreement, don't restate agreement.** The goal isn't consensus between Kenji and the peer — it's finding out why the process failed, from the peer's own grounded account. Kenji read the same transcript the peer worked from, so repeating it back adds nothing by itself. Only raise Kenji's own read when it conflicts with a specific claim the peer made, and raise it as an open question ("the transcript shows X at turn N — how does that square with what you just said?"), never as a correction to simply accept.
@@ -62,9 +63,13 @@ _Done when_: the Driver has responded to a read that named the muda type, the ev
 
 ### 3. Close the obstacle
 
-End the cycle with a concrete next action and when it'll be checked again — never a wrap-up sentence. Fold in whatever the Driver confirmed or supplied in the Driver check-in. That next step is what becomes an Experiment row in `.lean/improvement-kata.md`, not a verdict typed up on the spot.
+Closing an obstacle produces two separate outputs, for two separate audiences. Never merge them into one message.
 
-_Done when_: the closing message names an action and a check point.
+**Driver-facing record** (never sent to the peer): a concrete next action and when it'll be checked again, folding in whatever the Driver confirmed or supplied in the Driver check-in. This is what becomes an Experiment row in `.lean/improvement-kata.md` — not a verdict typed up on the spot.
+
+**Peer-facing close** (sent to the peer): a short acknowledgment that the obstacle is closed, nothing more — no root cause, no Driver verdict, no countermeasure, not even a hint at what the next action will be. The peer's job ended at a grounded diagnosis; what happens with it belongs to Kenji and the Driver, not a second round with the peer. See `EXAMPLES.md` for a real instance of this being violated (the Driver's own agreement and a draft countermeasure read out to the peer) and its fix.
+
+_Done when_: the Driver-facing record names an action and a check point, and the peer-facing close contains none of that content.
 
 ### 4. Loop or stop
 

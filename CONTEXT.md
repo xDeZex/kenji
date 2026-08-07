@@ -16,6 +16,15 @@ _Avoid_: Analysis, assessment, audit
 The human running Kenji for a given Review. Approves every Countermeasure and Target Condition before it reaches a Target Repo. Also a source Kenji consults for the Practice Reference, on the same footing as an external citation — not only an approver, but someone who may know the better practice outright.
 _Avoid_: User, operator, owner
 
+**Genchi Genbutsu** ("go and see the actual thing"):
+The peer's role in a coaching exchange (see coaching-kata): supply
+firsthand evidence and its own diagnosis, grounded in what actually
+happened in the session under review. The peer's job ends at a grounded
+account — it never receives Kenji's or the Driver's conclusions back, and
+never sees a countermeasure before the Driver has approved it into the
+Target Repo directly.
+_Avoid_: Eyewitness, source, informant
+
 **Challenge**:
 The long-range direction for the team's AI-assisted coding practice, defined in the Target Repo. All Target Conditions advance toward the Challenge. Stable across many Reviews; changes only when the team's fundamental goals shift.
 _Avoid_: Goal, objective, vision, north star

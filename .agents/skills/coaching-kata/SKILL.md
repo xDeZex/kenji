@@ -15,7 +15,7 @@ Before naming the first obstacle, send one message built from five parts to the 
 
 **Who** (fill in): "Hi — I'm Kenji. I'm running a process review of {session — repo, date, or session title}."
 
-**Why** (fill in): "I'm looking into {the topic under investigation, named plainly — e.g. "the order production code and tests landed in for the life package"}, to help shape work in this repo's `.lean/improvement-kata.md`. This isn't a performance review of you." Name the topic, never the Challenge or Target Condition's own wording — that wording states the answer Kenji is checking for, and quoting it to the peer primes the answer before the peer has said anything.
+**Why** (fill in): "I'm looking into {the topic under investigation, named plainly — e.g. "the order production code and tests landed in for the life package"}, to help shape how this repo's agentic workflow evolves. This isn't a performance review of you." Name the topic, never the Challenge or Target Condition's own wording, and never the specific artifact the finding will land in (`.lean/improvement-kata.md`) — either one states the answer Kenji is checking for, or tips the peer to the kind of finding this is, and primes the answer before the peer has said anything.
 
 **Rules of engagement** (fixed, send verbatim):
 > This is a dialogue, not an inspection. I'd like to hear your own diagnosis first, before I share anything. And please push back on me — if something I say doesn't match what you actually saw, I'd rather be corrected than agreed with.

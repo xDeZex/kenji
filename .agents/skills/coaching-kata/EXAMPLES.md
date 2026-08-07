@@ -24,16 +24,18 @@ the open):
 **Why it failed**: The peer now knows, before answering anything, exactly
 which behavior Kenji considers correct ("no production code before a
 failing test") and exactly what conclusion Kenji is fishing for ("a
-grounded root cause for the test-ordering question"). Whatever the peer
-says next is shaped by that, whether or not it's true to what actually
-happened.
+grounded root cause for the test-ordering question"). Naming the specific
+artifact (`.lean/improvement-kata.md`) on top of that tips the peer to the
+kind of finding this is, even without the rule spelled out. Whatever the
+peer says next is shaped by all of it, whether or not it's true to what
+actually happened.
 
-**Good**: name the topic, not the rule being checked; drop the expected
-outcome from the message entirely.
+**Good**: name the topic, not the rule being checked or the artifact the
+finding lands in; drop the expected outcome from the message entirely.
 
 > I'm looking into the order production code and tests landed in for the
-> life package, to help shape work in this repo's
-> .lean/improvement-kata.md. This isn't a performance review of you.
+> life package, to help shape how this repo's agentic workflow evolves.
+> This isn't a performance review of you.
 
 (The expected-outcome framing still happens — privately, to steer the
 later Driver check-in — it just never reaches the peer.)

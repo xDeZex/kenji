@@ -6,3 +6,4 @@ Empty until the first question needs one. Check here before researching a new on
 
 | Title | Question | Entry |
 |---|---|---|
+| Toyota Kata's "Five Questions Card" — wording and attribution | Is issue #6's five-item "Coaching Kata questions" list the verbatim, canonical wording from Rother's Toyota Kata, and is the attribution correct? | [toyota-kata-five-coaching-questions.md](toyota-kata-five-coaching-questions.md) |

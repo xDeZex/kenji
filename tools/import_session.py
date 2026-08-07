@@ -14,6 +14,7 @@ Usage:
 
 import difflib
 import json
+import re
 import sys
 from dataclasses import dataclass
 from datetime import datetime
@@ -321,7 +322,7 @@ def claude_projects_dir():
 
 
 def claude_repo_dir_name(lean_repo):
-    return str(lean_repo).replace("\\", "/").replace("/", "-")
+    return re.sub(r"[^a-zA-Z0-9]", "-", str(lean_repo).replace("\\", "/"))
 
 
 def load_claude_transcript(path):
